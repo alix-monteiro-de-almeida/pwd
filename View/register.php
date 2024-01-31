@@ -11,13 +11,16 @@ if(session_status() === PHP_SESSION_NONE) {
 
 <form action="" method="post" class="signup">
                 <div class="field">
-                    <input type="text" placeholder="Fullname" name="fullname" required>
+                    <input type="text" placeholder="Username" name="fullname" required>
                 </div>  
                 <div class="field">
                     <input type="text" placeholder="Email" name="email" required>
                 </div>
                 <div class="field">
                     <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="field">
+                    <input type="password" placeholder="Confirm Password" name="confirmpwd" required>
                 </div>
                 <div class="checkbox">
                     <label><input type="checkbox" required>
