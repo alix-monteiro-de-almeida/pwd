@@ -1,17 +1,21 @@
 <?php
 
 use App\Model\User;
+use App\Controller\AuthentificationController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
+$auth = new AuthentificationController();
+
+if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['password'])) {
+    $auth->register($_POST['fullname'], $_POST['email'], $_POST['password']);
 }
+
 ?>
 
 <form action="" method="post" class="signup">
                 <div class="field">
-                    <input type="text" placeholder="Username" name="fullname" required>
+                    <input type="text" placeholder="Fullname" name="fullname" required>
                 </div>  
                 <div class="field">
                     <input type="text" placeholder="Email" name="email" required>
@@ -19,17 +23,13 @@ if(session_status() === PHP_SESSION_NONE) {
                 <div class="field">
                     <input type="password" placeholder="Password" name="password" required>
                 </div>
-                <div class="field">
-                    <input type="password" placeholder="Confirm Password" name="confirmpwd" required>
-                </div>
-                <div class="checkbox">
+                <!-- <div class="checkbox">
                     <label><input type="checkbox" required>
                     I agree to the terms & conditions</label>
-                </div>
+                </div> -->
                 <div class="field btn">
                     <div class="btn-layer"></div>
                     <input type="submit" value="Signup">
                 </div>
-                <?php if (isset($app->msgError)) {echo $app->msgError;} ?>
             </form>
 

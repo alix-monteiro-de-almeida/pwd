@@ -155,4 +155,24 @@ class User
         $statement->execute();
         return $this;
     }
+
+    public function findOneByEmail(string $email): static|false
+    {
+        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $sql = "SELECT * FROM user WHERE email = :email";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($user) {
+            return new static(
+                $user['id'],
+                $user['fullname'],
+                $user['email'],
+                $user['password'],
+                $user['role']
+            );
+        }
+        return false;
+    }
 }

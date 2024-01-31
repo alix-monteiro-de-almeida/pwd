@@ -20,16 +20,13 @@ class AuthentificationController {
         $fullname = trim($_POST['fullname']);
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
-        $passwordConfirm = trim($_POST['confirmpwd']);
         $role = ['ROLE_USER'];
         
         if(
             !empty($fullname) &&
             !empty($email) &&
             !empty($password) &&
-            !empty($passwordConfirm) &&
-            preg_match($regexPassword, $password) &&
-            $password === $passwordConfirm
+            preg_match($regexPassword, $password)
         ) {
             $user = new User();
             $user->setFullname($fullname);
@@ -37,7 +34,10 @@ class AuthentificationController {
             $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
             $user->setRole($role);
             $user->create();
-            header('Location: /');
+            // header('Location: /');
+
+            echo "Votre compte a bien été créé";
+
         } else {
             echo "Veuillez remplir tous les champs correctement";
         }
