@@ -7,8 +7,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $auth = new AuthentificationController();
 
-if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['password'])) {
-    $auth->register($_POST['fullname'], $_POST['email'], $_POST['password']);
+if (isset($_POST['fullname'], $_POST['email'], $_POST['password'])) {
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $auth->register($fullname, $email, $password);
 }
 
 ?>
