@@ -1,9 +1,15 @@
 {
-    "name": "nico-rvl/revisions-poo",
+    "name": "dyane/my-little-mvc",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
         }
     },
+    "authors": [
+        {
+            "name": "diane-mulder",
+            "email": "diane.mulder@laplateforme.io"
+        }
+    ],
     "require": {}
 }
