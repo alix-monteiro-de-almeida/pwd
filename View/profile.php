@@ -35,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" placeholder="Email" name="email" value="<?php echo $_SESSION['email']; ?>">
     </div>
     <div class="field">
-        <input type="password" placeholder="Password" name="password">
+        <input type="password" placeholder="Old Password" name="oldPassword">
+    </div>
+    <div class="field">
+        <input type="password" placeholder="New Password" name="password">
     </div>
     <div class="field btn">
         <input type="submit" value="Save">
