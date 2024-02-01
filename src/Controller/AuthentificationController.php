@@ -6,15 +6,16 @@ use App\Model\User;
 
 
 class AuthentificationController {
+
+    public function __construct()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
     
     
     function register($fullname, $email, $password) {
-
-        if (!isset($_SESSION)) {
-            session_start();
-        } else {
-            session_destroy();
-        }
         
         if(
             !empty($fullname) &&
@@ -54,10 +55,6 @@ class AuthentificationController {
 
             if($userConnected && password_verify($password, $userConnected->getPassword())) {
 
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
-
                 $_SESSION['user'] = $userConnected;
                 // header('Location: /shop');
                 var_dump($userConnected);
@@ -66,4 +63,33 @@ class AuthentificationController {
             }
         }
     }
+
+    function updateProfile($email, $password, $fullname) {
+
+        if (!empty($email) && !empty($password) && !empty($fullname)) {
+            
+            $user = new User();
+            
+            $id = $_SESSION['user']->getId();
+            $userConnected = $user->findOneById($id);
+    
+            if ($userConnected) {
+    
+                $_SESSION['user']->setEmail($email);
+                $_SESSION['user']->setFullname($fullname);
+
+                $_SESSION['user']->setPassword(password_hash($password, PASSWORD_DEFAULT));
+                $_SESSION['user']->update();
+    
+                // header('Location: /shop');
+                echo "Profil mis à jour avec succès!";
+            } else {
+                echo "Les identifiants fournis ne correspondent à aucun utilisateur";
+            }
+        } else {
+            echo "Veuillez fournir toutes les informations nécessaires";
+        }
+    }
+    
+    
 }

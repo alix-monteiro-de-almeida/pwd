@@ -96,12 +96,15 @@ class User
         $statement->execute();
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
         if ($user) {
+
+            $role = json_decode($user['role'], true);
+
             return new static(
                 $user['id'],
                 $user['fullname'],
                 $user['email'],
                 $user['password'],
-                $user['role']
+                $role,
             );
         }
         return false;
@@ -169,7 +172,7 @@ class User
         $statement->bindValue(':email', $email);
         $statement->execute();
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
-        if ($user && !empty($user['password'])) {
+        if ($user) {
 
             $role = json_decode($user['role'], true);
 
