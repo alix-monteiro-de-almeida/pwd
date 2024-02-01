@@ -8,22 +8,24 @@ use App\Model\User;
 class AuthentificationController {
     
     
-    function register() {
+    function register($fullname, $email, $password) {
 
         if (!isset($_SESSION)) {
             session_start();
         } else {
             session_destroy();
         }
-        $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
-        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-        $password = isset($_POST['password']) ? trim($_POST['password']) : '';
-        $role = ['ROLE_USER'];
+        
         if(
             !empty($fullname) &&
             !empty($email) &&
             !empty($password) 
         ) {
+            $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
+            $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+            $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+            $role = ['ROLE_USER'];
+
             $user = new User();
             $user->setFullname($fullname);
             $user->setEmail($email);
@@ -38,30 +40,27 @@ class AuthentificationController {
         }
     }
 
-    function login() {
-
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-        $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    function login($email, $password) {
 
         if(
             !empty($email) &&
             !empty($password)
         ) {
-    
+            $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+            $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+
             $user = new User();
-            $user->setEmail($email);
-            $user->setPassword($password);
-            $user->findOneByEmail($email);
+            $userConnected = $user->findOneByEmail($email);
 
-            if(password_verify($password, $user->getPassword())) {
+            if($userConnected && password_verify($password, $userConnected->getPassword())) {
 
-                $_SESSION['user'] = $user;
-                var_dump($user);
-                header('Location: /shop');
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                $_SESSION['user'] = $userConnected;
+                // header('Location: /shop');
+                var_dump($userConnected);
             } else {
                 echo "Les identifiants fournis ne correspondent à aucun utilisateur";
             }

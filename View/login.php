@@ -11,7 +11,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     
-    $auth->login();
+    $auth->login($email, $password);
 }
 
 ?>
