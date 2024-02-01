@@ -52,7 +52,7 @@ class AuthentificationController {
 
             $user = new User();
             $userConnected = $user->findOneByEmail($email);
-
+            var_dump ($userConnected);
             if($userConnected && password_verify($password, $userConnected->getPassword())) {
 
                 $_SESSION['user'] = $userConnected;

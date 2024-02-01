@@ -5,6 +5,10 @@ use App\Controller\AuthentificationController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+if (!isset ($_SESSION)){
+    session_start();
+}
+
 $auth = new AuthentificationController();
 
 if (isset($_POST['email'], $_POST['password'])) {

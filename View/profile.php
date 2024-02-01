@@ -3,7 +3,15 @@
 use App\Model\User;
 use App\Controller\AuthentificationController;
 
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+if (!isset ($_SESSION)){
+    session_start();
+}
+
+
+var_dump ($_SESSION);
 
 $auth = new AuthentificationController();
 
@@ -29,10 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="form-inner">
 <form action="" method="post" class="signup">
     <div class="field">
-        <input type="text" placeholder="Fullname" name="fullname" value="<?php echo $_SESSION['fullname']; ?>">
+        <input type="text" placeholder="Fullname" name="fullname" value="<?php echo $_SESSION ['user']->getFullname(); ?>">
     </div>  
     <div class="field">
-        <input type="text" placeholder="Email" name="email" value="<?php echo $_SESSION['email']; ?>">
+        <input type="text" placeholder="Email" name="email" value="<?php echo $_SESSION ['user']->getEmail(); ?>">
     </div>
     <div class="field">
         <input type="password" placeholder="Old Password" name="oldPassword">
