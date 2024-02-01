@@ -11,8 +11,8 @@ if (isset($_POST['fullname'], $_POST['email'], $_POST['password'])) {
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    $auth->register($fullname, $email, $password);
+    
+    $auth->register();
 }
 
 ?>

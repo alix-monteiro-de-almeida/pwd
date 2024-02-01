@@ -13,7 +13,7 @@ class User
 
     private ?string $password;
 
-    private array $role;
+    private ?array $role;
 
 
     public function __construct(?int $id = null, ?string $fullname = null, ?string $email = null, ?string $password = null, ?array $role = null)
@@ -130,13 +130,15 @@ class User
 
     public function create(): static
     {
+        $jsonRole = json_encode($this->role);
+
         $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
         $sql = "INSERT INTO user (fullname, email, password, role) VALUES (:fullname, :email, :password, :role)";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':fullname', $this->fullname);
         $statement->bindValue(':email', $this->email);
         $statement->bindValue(':password', $this->password);
-        $statement->bindValue(':role', $this->role);
+        $statement->bindValue(':role', $jsonRole);
         $statement->execute();
         $this->id = (int)$pdo->lastInsertId();
         return $this;
