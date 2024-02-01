@@ -7,33 +7,27 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $auth = new AuthentificationController();
 
-if (isset($_POST['fullname'], $_POST['email'], $_POST['password'])) {
-    $fullname = $_POST['fullname'];
+if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     
-    $auth->register();
+    $auth->login();
 }
 
 ?>
 
-<form action="" method="post" class="signup">
-    <div class="field">
-        <input type="text" placeholder="Fullname" name="fullname" required>
-    </div>  
+<form action="" method="post" class="login">
     <div class="field">
         <input type="text" placeholder="Email" name="email" required>
     </div>
     <div class="field">
         <input type="password" placeholder="Password" name="password" required>
     </div>
-    <!-- <div class="checkbox">
-        <label><input type="checkbox" required>
-        I agree to the terms & conditions</label>
-    </div> -->
     <div class="field btn">
         <div class="btn-layer"></div>
-        <input type="submit" value="Signup">
+        <input type="submit" value="Login">
+    </div>
+    <div class="signup-link">
+        Not a member? <a href="">Signup now</a>
     </div>
 </form>
-

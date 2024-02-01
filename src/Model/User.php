@@ -146,13 +146,15 @@ class User
 
     public function update(): static
     {
+        $jsonRole = json_encode($this->role);
+
         $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
         $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':fullname', $this->fullname);
         $statement->bindValue(':email', $this->email);
         $statement->bindValue(':password', $this->password);
-        $statement->bindValue(':role', $this->role);
+        $statement->bindValue(':role', $jsonRole);
         $statement->bindValue(':id', $this->id);
         $statement->execute();
         return $this;
@@ -160,19 +162,23 @@ class User
 
     public function findOneByEmail(string $email): static|false
     {
+
         $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
         $sql = "SELECT * FROM user WHERE email = :email";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':email', $email);
         $statement->execute();
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
-        if ($user) {
+        if ($user && !empty($user['password'])) {
+
+            $role = json_decode($user['role'], true);
+
             return new static(
                 $user['id'],
                 $user['fullname'],
                 $user['email'],
                 $user['password'],
-                $user['role']
+                $role,
             );
         }
         return false;
