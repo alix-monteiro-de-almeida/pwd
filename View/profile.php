@@ -10,7 +10,6 @@ if (!isset ($_SESSION)){
     session_start();
 }
 
-
 var_dump ($_SESSION);
 
 $auth = new AuthentificationController();
@@ -41,9 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>  
     <div class="field">
         <input type="text" placeholder="Email" name="email" value="<?php echo $_SESSION ['user']->getEmail(); ?>">
-    </div>
-    <div class="field">
-        <input type="password" placeholder="Old Password" name="oldPassword">
     </div>
     <div class="field">
         <input type="password" placeholder="New Password" name="password">
