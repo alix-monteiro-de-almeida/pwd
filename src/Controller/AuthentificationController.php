@@ -35,7 +35,7 @@ class AuthentificationController {
             $user->create();
 
             echo "Votre compte a bien été créé";
-
+            header('Location: login.php');
         } else {
             echo "Veuillez remplir tous les champs correctement";
         }
@@ -56,7 +56,7 @@ class AuthentificationController {
             if($userConnected && password_verify($password, $userConnected->getPassword())) {
 
                 $_SESSION['user'] = $userConnected;
-                // header('Location: /shop');
+                header('Location: shop.php');
                 var_dump($userConnected);
             } else {
                 echo "Les identifiants fournis ne correspondent à aucun utilisateur";
@@ -81,7 +81,6 @@ class AuthentificationController {
                 $_SESSION['user']->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $_SESSION['user']->update();
     
-                // header('Location: /shop');
                 echo "Profil mis à jour avec succès!";
             } else {
                 echo "Les identifiants fournis ne correspondent à aucun utilisateur";

@@ -114,12 +114,12 @@ class Clothing extends AbstractProduct implements StockableInterface
     public function findAll(): array
     {
         $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
-        $statement = $pdo->prepare('SELECT * FROM clothing INNER JOIN product ON clothing.product_id = product.id');
+        $statement = $pdo->prepare('SELECT * FROM product INNER JOIN clothing ON clothing.product_id = product.id');
         $statement->execute();
         $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
-        $products = [];
+        $clothings = [];
         foreach ($results as $result) {
-            $products[] = new static(
+            $clothings[] = new static(
                 $result['id'],
                 $result['name'],
                 json_decode($result['photos']),
@@ -134,7 +134,7 @@ class Clothing extends AbstractProduct implements StockableInterface
                 $result['type'],
             );
         }
-        return $products;
+        return $clothings;
     }
 
     public function create(): static

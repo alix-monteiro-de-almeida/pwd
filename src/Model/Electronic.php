@@ -98,10 +98,10 @@ class Electronic extends AbstractProduct implements StockableInterface
 
         $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        $products = [];
+        $electronics = [];
 
         foreach ($results as $result) {
-            $products[] = new Electronic(
+            $electronics[] = new Electronic(
                 $result['id'],
                 $result['name'],
                 json_decode($result['photos']),
@@ -116,7 +116,7 @@ class Electronic extends AbstractProduct implements StockableInterface
             );
         }
 
-        return $products;
+        return $electronics;
     }
 
     public function create(): static
