@@ -4,6 +4,9 @@ require_once '../vendor/autoload.php';
 
 use App\Model\Clothing;
 use App\Model\Electronic;
+use App\Controller\ShopController;
+
+$shopController = new ShopController();
 
 $electronicInstance = new Electronic();
 
@@ -12,6 +15,9 @@ $clothingInstance = new Clothing();
 $electronics = $electronicInstance->findAll();
 
 $clothings = $clothingInstance->findAll();
+
+$shopIndex = $shopController->index('shop');
+
 
 ?>
 
