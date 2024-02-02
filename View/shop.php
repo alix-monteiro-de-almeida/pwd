@@ -32,7 +32,6 @@ $clothings = $clothingInstance->findAll();
                         <h2><?= $electronic->getName() ?></h2>
                         <p><?= $electronic->getDescription() ?></p>
                         <p><?= $electronic->getPrice() ?></p>
-                        <p><?= $electronic->getQuantity() ?></p>
                         <p><?= $electronic->getBrand() ?></p>
                         <p><?= $electronic->getWarantyFee() ?></p>
                     </li>
@@ -47,9 +46,7 @@ $clothings = $clothingInstance->findAll();
                         <h2><?= $clothing->getName() ?></h2>
                         <p><?= $clothing->getDescription() ?></p>
                         <p><?= $clothing->getPrice() ?></p>
-                        <p><?= $clothing->getQuantity() ?></p>
                         <p><?= $clothing->getSize() ?></p>
-                        <p><?= $clothing->getColor() ?></p>
                         <p><?= $clothing->getType() ?></p>
                     </li>
                 <?php endforeach; ?>
