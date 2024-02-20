@@ -90,9 +90,9 @@ class User
     public function findOneById(int $id): static|false
     {
         $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
-        $sql = "SELECT * FROM user WHERE id = :id";
+        $sql = "SELECT * FROM user WHERE id = :monEtiquette";
         $statement = $pdo->prepare($sql);
-        $statement->bindValue(':id', $id);
+        $statement->bindValue(':monEtiquette', $id);
         $statement->execute();
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
         if ($user) {
