@@ -10,21 +10,21 @@ if (!isset ($_SESSION)){
     session_start();
 }
 
-var_dump ($_SESSION);
-
 $auth = new AuthentificationController();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
     $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $oldPassword = $_POST['oldPassword'];
+    $newPassword = $_POST['newPassword'];
+
 
     $_SESSION['email'] = $email;
     $_SESSION['fullname'] = $fullname;
 
-    $auth->updateProfile($email, $password, $fullname);
+    $auth->updateProfile($fullname,$email,$oldPassword,$newPassword);
 
 }
 ?>
@@ -42,9 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" placeholder="Email" name="email" value="<?php echo $_SESSION ['user']->getEmail(); ?>">
     </div>
     <div class="field">
-        <input type="password" placeholder="New Password" name="password">
+        <input type="password" placeholder="Old Password" name="oldPassword">
+    </div>
+    <div class="field">
+        <input type="password" placeholder="New Password" name="newPassword">
     </div>
     <div class="field btn">
-        <input type="submit" value="Save">
+        <input type="submit" value="Save" name="updateProfile">
     </div>
 </form>

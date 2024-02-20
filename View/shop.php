@@ -4,6 +4,9 @@ require_once '../vendor/autoload.php';
 
 use App\Model\Clothing;
 use App\Model\Electronic;
+use App\Controller\ShopController;
+
+$shopController = new ShopController();
 
 $electronicInstance = new Electronic();
 
@@ -13,6 +16,9 @@ $electronics = $electronicInstance->findAll();
 
 $clothings = $clothingInstance->findAll();
 
+$shopIndex = $shopController->index('shop');
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +26,7 @@ $clothings = $clothingInstance->findAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My-little-Mvc</title>
+    <title>pwd</title>
 </head>
     <body>
         <main>

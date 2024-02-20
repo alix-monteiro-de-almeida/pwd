@@ -16,16 +16,25 @@ class AuthentificationController {
     
     
     function register($fullname, $email, $password) {
+
+        if(User::emailExists($email)) {
+            echo "Cet email est déjà utilisé. Veuillez en choisir un autre.";
+            return;
+        }
         
         if(
             !empty($fullname) &&
             !empty($email) &&
             !empty($password) 
         ) {
-            $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
+            $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : ''; 
+            // condition ternaire 
+
             $email = isset($_POST['email']) ? trim($_POST['email']) : '';
             $password = isset($_POST['password']) ? trim($_POST['password']) : '';
             $role = ['ROLE_USER'];
+
+            // $toto = true ?: false; 
 
             $user = new User();
             $user->setFullname($fullname);
@@ -64,24 +73,33 @@ class AuthentificationController {
         }
     }
 
-    function updateProfile($email, $password, $fullname) {
+    function updateProfile($fullname,$email,$oldPassword,$newPassword) {
 
-        if (!empty($email) && !empty($password) && !empty($fullname)) {
+        if (!empty($fullname) && !empty($email) && !empty($oldPassword) && !empty ($newPassword)) {
             
-            $user = new User();
+            $user = new User(); // model 
             
             $id = $_SESSION['user']->getId();
-            $userConnected = $user->findOneById($id);
+            $userFetch = $user->findOneById($id);
     
-            if ($userConnected) {
+            if ($userFetch) 
+            {
     
-                $_SESSION['user']->setEmail($email);
-                $_SESSION['user']->setFullname($fullname);
+                // if $oldPassword == $userFetch ($password)
+                if(password_verify($oldPassword, $userFetch->getPassword())){
+                    
+                    $_SESSION['user']->setEmail($email);
+                    $_SESSION['user']->setFullname($fullname);
+    
+                    $_SESSION['user']->setPassword(password_hash($newPassword, PASSWORD_DEFAULT));
+                    $_SESSION['user']->update();
+        
+                    echo "Profil mis à jour avec succès!";
+                }
+                else {
+                  echo "Ancien mot de passe incorrect";
+                }
 
-                $_SESSION['user']->setPassword(password_hash($password, PASSWORD_DEFAULT));
-                $_SESSION['user']->update();
-    
-                echo "Profil mis à jour avec succès!";
             } else {
                 echo "Les identifiants fournis ne correspondent à aucun utilisateur";
             }
