@@ -32,6 +32,6 @@ if (isset($_POST['email'], $_POST['password'])) {
         <input type="submit" value="Login">
     </div>
     <div class="signup-link">
-        Not a member? <a href="">Signup now</a>
+        Not a member? <button onclick="window.location.href='register'">Signup now</button>
     </div>
 </form>
