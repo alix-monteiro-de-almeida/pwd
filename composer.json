@@ -1,5 +1,5 @@
 {
-    "name": "dyane/my-little-mvc",
+    "name": "dyane/pwd",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -11,5 +11,7 @@
             "email": "diane.mulder@laplateforme.io"
         }
     ],
-    "require": {}
+    "require": {
+        "altorouter/altorouter": "1.1.0"
+    }
 }

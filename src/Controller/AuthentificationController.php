@@ -16,16 +16,25 @@ class AuthentificationController {
     
     
     function register($fullname, $email, $password) {
+
+        if(User::emailExists($email)) {
+            echo "Cet email est déjà utilisé. Veuillez en choisir un autre.";
+            return;
+        }
         
         if(
             !empty($fullname) &&
             !empty($email) &&
             !empty($password) 
         ) {
-            $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
+            $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : ''; 
+            // condition ternaire 
+
             $email = isset($_POST['email']) ? trim($_POST['email']) : '';
             $password = isset($_POST['password']) ? trim($_POST['password']) : '';
             $role = ['ROLE_USER'];
+
+            // $toto = true ?: false; 
 
             $user = new User();
             $user->setFullname($fullname);
