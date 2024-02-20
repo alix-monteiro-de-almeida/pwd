@@ -87,7 +87,7 @@ class Clothing extends AbstractProduct implements StockableInterface
 
     public function findOneById(int $id): static|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $statement = $pdo->prepare('SELECT * FROM clothing INNER JOIN product ON clothing.product_id = product.id WHERE clothing.product_id = :id');
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
         $statement->execute();
@@ -113,7 +113,7 @@ class Clothing extends AbstractProduct implements StockableInterface
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $statement = $pdo->prepare('SELECT * FROM product INNER JOIN clothing ON clothing.product_id = product.id');
         $statement->execute();
         $results = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -139,7 +139,7 @@ class Clothing extends AbstractProduct implements StockableInterface
 
     public function create(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "INSERT INTO product (name, photos, price, description, quantity, category_id, created_at, updated_at) VALUES (:name, :photos, :price, :description, :quantity, :category_id, :created_at, :updated_at)";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':name', $this->getName());
@@ -165,7 +165,7 @@ class Clothing extends AbstractProduct implements StockableInterface
 
     public function update(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "UPDATE product SET name = :name, photos = :photos, price = :price, description = :description, quantity = :quantity, category_id = :category_id, updated_at = :updated_at WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $this->getId());

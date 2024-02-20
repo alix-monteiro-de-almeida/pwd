@@ -80,7 +80,7 @@ class Category
 
     public function getProducts(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
 
         $result = [];
 
@@ -140,7 +140,7 @@ class Category
 
     public function findOneById(int $id): static|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "SELECT * FROM category WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $id);
@@ -161,7 +161,7 @@ class Category
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "SELECT * FROM category";
         $statement = $pdo->prepare($sql);
         $statement->execute();
@@ -182,7 +182,7 @@ class Category
 
     public function create(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "INSERT INTO category (name, description, created_at) VALUES (:name, :description, :created_at)";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':name', $this->name);
@@ -195,7 +195,7 @@ class Category
 
     public function update(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "UPDATE category SET name = :name, description = :description, updated_at = :updated_at WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':name', $this->name);

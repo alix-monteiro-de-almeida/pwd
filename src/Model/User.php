@@ -89,7 +89,7 @@ class User
 
     public function findOneById(int $id): static|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "SELECT * FROM user WHERE id = :monEtiquette";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':monEtiquette', $id);
@@ -112,7 +112,7 @@ class User
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "SELECT * FROM user";
         $statement = $pdo->prepare($sql);
         $statement->execute();
@@ -135,7 +135,7 @@ class User
     {
         $jsonRole = json_encode($this->role);
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "INSERT INTO user (fullname, email, password, role) VALUES (:fullname, :email, :password, :role)";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':fullname', $this->fullname);
@@ -151,7 +151,7 @@ class User
     {
         $jsonRole = json_encode($this->role);
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':fullname', $this->fullname);
@@ -166,7 +166,7 @@ class User
     public function findOneByEmail(string $email): static|false
     {
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=my-little-mvc', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
         $sql = "SELECT * FROM user WHERE email = :email";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':email', $email);
@@ -185,5 +185,16 @@ class User
             );
         }
         return false;
+    }
+
+    public static function emailExists(string $email): bool
+    {
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
+        $sql = "SELECT * FROM user WHERE email = :email";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(\PDO::FETCH_ASSOC);
+        return $user ? true : false;
     }
 }

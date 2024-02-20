@@ -16,6 +16,11 @@ class AuthentificationController {
     
     
     function register($fullname, $email, $password) {
+
+        if(User::emailExists($email)) {
+            echo "Cet email est déjà utilisé. Veuillez en choisir un autre.";
+            return;
+        }
         
         if(
             !empty($fullname) &&
