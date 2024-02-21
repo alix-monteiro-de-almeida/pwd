@@ -32,7 +32,7 @@ class AuthentificationController {
 
             $email = isset($_POST['email']) ? trim($_POST['email']) : '';
             $password = isset($_POST['password']) ? trim($_POST['password']) : '';
-            $role = ['ROLE_USER'];
+            $role = 'ROLE_USER';
 
             // $toto = true ?: false; 
 
@@ -64,7 +64,7 @@ class AuthentificationController {
             if($userConnected && password_verify($password, $userConnected->getPassword())) {
 
                 $_SESSION['user'] = $userConnected;
-                header('Location: shop.php');
+                header('Location: shop');
                 var_dump($userConnected);
             } else {
                 echo "Les identifiants fournis ne correspondent à aucun utilisateur";
@@ -106,6 +106,4 @@ class AuthentificationController {
             echo "Veuillez fournir toutes les informations nécessaires";
         }
     }
-    
-    
 }

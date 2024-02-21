@@ -13,10 +13,10 @@ class User
 
     private ?string $password;
 
-    private ?array $role;
+    private ?string $role;
 
 
-    public function __construct(?int $id = null, ?string $fullname = null, ?string $email = null, ?string $password = null, ?array $role = null)
+    public function __construct(?int $id = null, ?string $fullname = null, ?string $email = null, ?string $password = null, ?string $role = null)
     {
         $this->id = $id;
         $this->fullname = $fullname;
@@ -48,7 +48,7 @@ class User
         return $this->password;
     }
 
-    public function getRole(): ?array
+    public function getRole(): ?string
     {
         return $this->role;
     }
@@ -79,7 +79,7 @@ class User
         return $this;
     }
 
-    public function setRole(?array $role): User
+    public function setRole(?string $role): User
     {
         $this->role = $role;
         return $this;
@@ -174,14 +174,14 @@ class User
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
         if ($user) {
 
-            $role = json_decode($user['role'], true);
+            // $role = json_decode($user['role'], true);
 
             return new static(
                 $user['id'],
                 $user['fullname'],
                 $user['email'],
                 $user['password'],
-                $role,
+                $user['role'],
             );
         }
         return false;

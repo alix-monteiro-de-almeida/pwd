@@ -51,6 +51,19 @@ $router->map('GET', '/shop', function(){
     require_once 'View/shop.php';
 }, 'shop');
 
+$router->map('GET', '/profile', function(){
+    require_once 'View/profile.php';
+}, 'profile');
+
+$router->map('POST', '/profile', function(){
+    $auth = new AuthentificationController();
+    $auth->updateProfile($_POST['fullname'], $_POST['email'], $_POST['oldPassword'], $_POST['newPassword']);
+}, 'profile_post');
+
+$router->map('GET', '/admin/users/list', function(){
+    $findUsers = new User();
+    $findUsers->findAll();
+}, 'users_list');
 
 $match = $router->match();
 
