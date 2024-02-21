@@ -38,11 +38,22 @@ $router->map('POST', '/register', function(){
     $auth->register($_POST['fullname'], $_POST['email'], $_POST['password']);
 }, 'register_post');
 
+$router->map('GET', '/login', function(){
+    require_once 'View/login.php';
+}, 'login');
 
+$router->map('POST', '/login', function(){
+    $auth = new AuthentificationController();
+    $auth->login($_POST['email'], $_POST['password']);
+}, 'login_post');
+
+$router->map('GET', '/shop', function(){
+    require_once 'View/shop.php';
+}, 'shop');
 
 
 $match = $router->match();
-var_dump($match);
+
 // call closure or throw 404 status
 if( is_array($match) && is_callable( $match['target'] ) ) {
 	call_user_func_array( $match['target'], $match['params'] );
@@ -50,5 +61,3 @@ if( is_array($match) && is_callable( $match['target'] ) ) {
 	// no route was matched
 	header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 }
-
-?>
