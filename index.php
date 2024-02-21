@@ -38,11 +38,20 @@ $router->map('POST', '/register', function(){
     $auth->register($_POST['fullname'], $_POST['email'], $_POST['password']);
 }, 'register_post');
 
+$router->map('GET', '/login', function(){
+    require_once 'View/login.php';
+}, 'login');
+
+$router->map('POST', '/login', function(){
+    $auth = new AuthentificationController();
+    $auth->login($_POST['email'], $_POST['password']);
+}, 'login_post');
+
 
 
 
 $match = $router->match();
-var_dump($match);
+// var_dump($router);
 // call closure or throw 404 status
 if( is_array($match) && is_callable( $match['target'] ) ) {
 	call_user_func_array( $match['target'], $match['params'] );
