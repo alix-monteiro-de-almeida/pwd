@@ -8,12 +8,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 var_dump($_GET);
 
-if (isset($productId)) {
+if (isset($id_product)) {
     $electronicInstance = new Electronic();
     $clothingInstance = new Clothing();
 
-    $electronic = $electronicInstance->findOneById($productId);
-    $clothing = $clothingInstance->findOneById($productId);
+    $electronic = $electronicInstance->findOneById($id_product);
+    $clothing = $clothingInstance->findOneById($id_product);
 
     if ($electronic && $clothing) {
         echo "<h1>Détails du produit</h1>";
