@@ -41,7 +41,6 @@ $router->map('POST', '/register', function(){
 
 
 
-
 $match = $router->match();
 var_dump($match);
 // call closure or throw 404 status
