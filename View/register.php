@@ -5,16 +5,6 @@ use App\Controller\AuthentificationController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$auth = new AuthentificationController();
-
-if (isset($_POST['fullname'], $_POST['email'], $_POST['password'])) {
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    $auth->register($fullname, $email, $password);
-}
-
 ?>
 
 <form action="" method="post" class="signup">

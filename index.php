@@ -13,40 +13,42 @@ use App\Controller\AuthentificationController;
 use App\Controller\ShopController;
 use App\Model\User;
 
-$router->map('GET', '/', 'home', 'home');
 
-$router->map('GET', '/product', 'product', 'product');
+$router->map('GET', '/', function(){
+    require_once 'View/home.php';
+    echo "Hello Homepage";
+}, 'home');
 
-$router->map('GET', '/product/[i:id_product]', 'productId', 'productId');
+$router->map('GET', '/product', function(){
+    require_once 'View/product.php';
+    echo "Hello Products list";
+}, 'product');
+
+$router->map('GET', '/product/[i:id_product]', function($id_product){
+    require_once 'View/product.php';
+    echo "Hello Product ID: $id_product";
+}, 'productId');
+
+$router->map('GET', '/register', function(){
+    require_once 'View/register.php';
+}, 'register');
+
+$router->map('POST', '/register', function(){
+    $auth = new AuthentificationController();
+    $auth->register($_POST['fullname'], $_POST['email'], $_POST['password']);
+}, 'register_post');
+
+
+
 
 $match = $router->match();
-
-if ($match){
-    $routeName = $match['target'];
-
-    switch($routeName) {
-        case 'home':
-            require_once 'View/home.php';
-            echo "Hello Homepage";
-            break;
-
-        case 'product':
-            require_once 'View/product.php';
-            echo "Hello Products list";
-            break;
-
-        case 'productId':
-            $productId = $match['params']['id_product'];
-            require_once 'View/product.php';
-            echo "Hello Product ID: $productId";
-            break;
-
-        default:
-            echo "404";
-        break;
-    } 
+var_dump($match);
+// call closure or throw 404 status
+if( is_array($match) && is_callable( $match['target'] ) ) {
+	call_user_func_array( $match['target'], $match['params'] );
 } else {
-    echo "404";
+	// no route was matched
+	header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 }
 
 ?>
