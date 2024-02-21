@@ -9,15 +9,6 @@ if (!isset ($_SESSION)){
     session_start();
 }
 
-$auth = new AuthentificationController();
-
-if (isset($_POST['email'], $_POST['password'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    $auth->login($email, $password);
-}
-
 ?>
 
 <form action="" method="post" class="login">
