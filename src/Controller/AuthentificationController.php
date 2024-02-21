@@ -64,7 +64,7 @@ class AuthentificationController {
             if($userConnected && password_verify($password, $userConnected->getPassword())) {
 
                 $_SESSION['user'] = $userConnected;
-                header('Location: shop.php');
+                header('Location: shop');
                 var_dump($userConnected);
             } else {
                 echo "Les identifiants fournis ne correspondent à aucun utilisateur";

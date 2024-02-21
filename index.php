@@ -13,6 +13,8 @@ use App\Controller\AuthentificationController;
 use App\Controller\ShopController;
 use App\Model\User;
 
+session_destroy();
+
 
 $router->map('GET', '/', function(){
     require_once 'View/home.php';
@@ -50,6 +52,15 @@ $router->map('POST', '/login', function(){
 $router->map('GET', '/shop', function(){
     require_once 'View/shop.php';
 }, 'shop');
+
+$router->map('GET', '/profile', function(){
+    require_once 'View/profile.php';
+}, 'profile');
+
+$router->map('POST', '/profile', function(){
+    $auth = new AuthentificationController();
+    $auth->updateProfile($_POST['fullname'], $_POST['email'], $_POST['oldPassword'], $_POST['newPassword']);
+}, 'profile_post');
 
 
 $match = $router->match();
