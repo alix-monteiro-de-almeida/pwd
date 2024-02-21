@@ -97,14 +97,12 @@ class User
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
         if ($user) {
 
-            $role = json_decode($user['role'], true);
-
             return new static(
                 $user['id'],
                 $user['fullname'],
                 $user['email'],
                 $user['password'],
-                $role,
+                $user['role'],
             );
         }
         return false;
@@ -124,7 +122,7 @@ class User
                 $user['fullname'],
                 $user['email'],
                 $user['password'],
-                $user['role']
+                $user['role'],
             );
         }
 
@@ -133,7 +131,6 @@ class User
 
     public function create(): static
     {
-        $jsonRole = json_encode($this->role);
 
         $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
         $sql = "INSERT INTO user (fullname, email, password, role) VALUES (:fullname, :email, :password, :role)";
@@ -141,7 +138,7 @@ class User
         $statement->bindValue(':fullname', $this->fullname);
         $statement->bindValue(':email', $this->email);
         $statement->bindValue(':password', $this->password);
-        $statement->bindValue(':role', $jsonRole);
+        $statement->bindValue(':role', $this->role);
         $statement->execute();
         $this->id = (int)$pdo->lastInsertId();
         return $this;
@@ -149,7 +146,6 @@ class User
 
     public function update(): static
     {
-        $jsonRole = json_encode($this->role);
 
         $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
         $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role WHERE id = :id";
@@ -157,7 +153,7 @@ class User
         $statement->bindValue(':fullname', $this->fullname);
         $statement->bindValue(':email', $this->email);
         $statement->bindValue(':password', $this->password);
-        $statement->bindValue(':role', $jsonRole);
+        $statement->bindValue(':role', $this->role);
         $statement->bindValue(':id', $this->id);
         $statement->execute();
         return $this;
