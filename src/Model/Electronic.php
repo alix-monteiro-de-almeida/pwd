@@ -59,7 +59,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function findOneById(int $id): static|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
 
         $statement = $pdo->prepare('SELECT * FROM product INNER JOIN electronic ON product.id = electronic.product_id WHERE product.id = :id');
 
@@ -90,7 +90,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
 
         $statement = $pdo->prepare('SELECT * FROM product INNER JOIN electronic ON product.id = electronic.product_id');
 
@@ -121,7 +121,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function create(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
 
         $sql = "INSERT INTO product (name, photos, price, description, quantity, category_id, created_at, updated_at) VALUES (:name, :photos, :price, :description, :quantity, :category_id, :created_at, :updated_at)";
 
@@ -155,7 +155,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function update(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
 
         $sql = "UPDATE product SET name = :name, photos = :photos, price = :price, description = :description, quantity = :quantity, category_id = :category_id, updated_at = :updated_at WHERE id = :id";
 
