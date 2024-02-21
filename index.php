@@ -38,6 +38,7 @@ if ($match){
         case 'productId':
             $productId = $match['params']['id_product'];
             require_once 'View/product.php';
+            
             echo "Hello Product ID: $productId";
             break;
 
