@@ -44,7 +44,6 @@ class AuthentificationController {
             $user->create();
 
             echo "Votre compte a bien été créé";
-            header('Location: login.php');
         } else {
             echo "Veuillez remplir tous les champs correctement";
         }
