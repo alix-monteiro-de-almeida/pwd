@@ -73,6 +73,12 @@ $router->map('GET', '/admin/users/show/[i:id]', function($id){
     require_once 'View/admin.php';
 }, 'user_by_id');
 
+$router->map('GET', '/admin/users/edit/[i:id]', function($id){
+    $updateUserById = new User();
+    $updateUserById->update();
+    require_once 'View/admin.php';
+}, 'update_user_by_id');
+
 $match = $router->match();
 
 // call closure or throw 404 status

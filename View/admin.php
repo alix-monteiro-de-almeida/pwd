@@ -15,7 +15,11 @@ if ($uri == "/admin/users/list") {
 } elseif (preg_match("/\/admin\/users\/show\/(\d+)/", $uri, $matches)) {
     $id = intval($matches[1]);
     $findUserById = $user->findOneById($id);
+} elseif (preg_match("/\/admin\/users\/edit\/(\d+)/", $uri, $matches)) {
+    $id = intval($matches[1]);
+    $updateUserById = $user->update();
 }
+
 
 ?>
 
@@ -73,6 +77,27 @@ if ($uri == "/admin/users/list") {
             </tbody>
         </table>
     <?php endif; ?>
+
+    <?php if (isset($updateUserById)) : ?>
+            <form action="" method="post" class="signup">
+                <div class="field">
+                    <input type="text" placeholder="Fullname" name="fullname" value="<?php echo $updateUserById->getFullname(); ?>">
+                </div>  
+                <div class="field">
+                    <input type="text" placeholder="Email" name="email" value="<?php echo $updateUserById->getEmail(); ?>">
+                </div>
+                <div class="field">
+                    <input type="password" placeholder="Old Password" name="oldPassword">
+                </div>
+                <div class="field">
+                    <input type="password" placeholder="New Password" name="newPassword">
+                </div>
+                <div class="field btn">
+                    <input type="submit" value="Save" name="updateProfile">
+                </div>
+            </form>
+    <?php endif; ?>
+
 </main>
 </body>
 </html>

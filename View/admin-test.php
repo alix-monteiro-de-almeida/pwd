@@ -12,12 +12,13 @@ $uri = $_SERVER['REQUEST_URI'];
 // Vérifier l'URI pour décider quelles données afficher
 if ($uri === "/admin/users/list") {
     $usersList = $user->findAll();
-    $title = "All Users";
 } elseif (preg_match("/\/admin\/users\/show\/(\d+)/", $uri, $matches)) {
     // Si l'URI correspond à "/admin/users/show/[id]", nous récupérons l'ID de l'URI
     $id = intval($matches[1]);
     $userById = $user->findOneById($id);
-    $title = "User by ID";
+} elseif (preg_match("/\/admin\/users\/edit\/(\d+)/", $uri, $matches)) {
+    $id = intval($matches[1]);
+    $updateUserById = $user->update();
 }
 
 ?>
@@ -31,11 +32,8 @@ if ($uri === "/admin/users/list") {
 </head>
 <body>
 <main>
-    <h1>Admin Panel</h1>
 
-    <?php if (isset($title)): ?>
-        <h2><?php echo $title; ?></h2>
-    <?php endif; ?>
+    <h1>Admin Panel</h1>
 
     <?php if (isset($usersList)): ?>
         <table>
@@ -79,6 +77,26 @@ if ($uri === "/admin/users/list") {
                 </tr>
             </tbody>
         </table>
+    <?php endif; ?>
+
+    <?php if (isset($updateUserById)) : ?>
+            <form action="" method="post" class="signup">
+                <div class="field">
+                    <input type="text" placeholder="Fullname" name="fullname" value="<?php echo $updateUserById->getFullname(); ?>">
+                </div>  
+                <div class="field">
+                    <input type="text" placeholder="Email" name="email" value="<?php echo $updateUserById->getEmail(); ?>">
+                </div>
+                <div class="field">
+                    <input type="password" placeholder="Old Password" name="oldPassword">
+                </div>
+                <div class="field">
+                    <input type="password" placeholder="New Password" name="newPassword">
+                </div>
+                <div class="field btn">
+                    <input type="submit" value="Save" name="updateProfile">
+                </div>
+            </form>
     <?php endif; ?>
 </main>
 </body>
