@@ -13,8 +13,6 @@ use App\Controller\AuthentificationController;
 use App\Controller\ShopController;
 use App\Model\User;
 
-session_destroy();
-
 
 $router->map('GET', '/', function(){
     require_once 'View/home.php';
