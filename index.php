@@ -62,15 +62,15 @@ $router->map('POST', '/profile', function(){
 }, 'profile_post');
 
 $router->map('GET', '/admin/users/list', function(){
-    $findUsers = new User();
-    $findUsers->findAll();
-    require_once 'View/admin-test.php';
+    $user = new User();
+    $findUsers = $user->findAll();
+    require_once 'View/admin.php';
 }, 'users_list');
 
 $router->map('GET', '/admin/users/show/[i:id]', function($id){
     $findUserById = new User();
     $findUserById->findOneById($id);
-    require_once 'View/admin-test.php';
+    require_once 'View/admin.php';
 }, 'user_by_id');
 
 $match = $router->match();
