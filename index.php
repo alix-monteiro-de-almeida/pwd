@@ -75,9 +75,16 @@ $router->map('GET', '/admin/users/show/[i:id]', function($id){
 
 $router->map('GET', '/admin/users/edit/[i:id]', function($id){
     $updateUserById = new User();
-    $updateUserById->update();
+    $updateUserById->update($id);
     require_once 'View/admin.php';
 }, 'update_user_by_id');
+
+$router->map('GET', '/admin/users/delete/[i:id]', function($id){
+    $deleteUserById = new User();
+    $deleteUserById->delete($id);
+    require_once 'View/admin.php';
+    echo 'user delete with success :)';
+}, 'delete_user_by_id');
 
 $match = $router->match();
 

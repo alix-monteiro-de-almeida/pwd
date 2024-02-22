@@ -144,7 +144,7 @@ class User
         return $this;
     }
 
-    public function update(): static
+    public function update($id): static
     {
 
         $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
@@ -192,5 +192,16 @@ class User
         $statement->execute();
         $user = $statement->fetch(\PDO::FETCH_ASSOC);
         return $user ? true : false;
+    }
+
+    public function delete(int $id): static
+    {
+
+        $pdo = new \PDO('mysql:host=localhost;dbname=pwd', 'maelle.lagarde', 'root');
+        $sql = "DELETE FROM user WHERE id = :id";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $this;
     }
 }

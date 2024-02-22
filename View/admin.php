@@ -17,7 +17,10 @@ if ($uri == "/admin/users/list") {
     $findUserById = $user->findOneById($id);
 } elseif (preg_match("/\/admin\/users\/edit\/(\d+)/", $uri, $matches)) {
     $id = intval($matches[1]);
-    $updateUserById = $user->update();
+    $updateUserById = $user->update($id);
+} elseif (preg_match("/\/admin\/users\/delete\/(\d+)/", $uri, $matches)) {
+    $id = intval($matches[1]);
+    $deleteUserById = $user->delete($id);
 }
 
 
@@ -35,6 +38,7 @@ if ($uri == "/admin/users/list") {
     <h1>Admin Panel</h1>
 
     <?php if (isset($findUsers)): ?>
+        <h2>All users registered</h2>
         <table>
             <thead>
             <tr>
@@ -58,6 +62,7 @@ if ($uri == "/admin/users/list") {
     <?php endif; ?>
 
     <?php if (isset($findUserById)): ?>
+        <h2>Find user by ID</h2>
         <table>
             <thead>
             <tr>
@@ -79,6 +84,7 @@ if ($uri == "/admin/users/list") {
     <?php endif; ?>
 
     <?php if (isset($updateUserById)) : ?>
+        <h2>Update user by ID</h2>
             <form action="" method="post" class="signup">
                 <div class="field">
                     <input type="text" placeholder="Fullname" name="fullname" value="<?php echo $updateUserById->getFullname(); ?>">
