@@ -5,7 +5,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Model\User;
 
 $user = new User();
-
 // Récupérer l'URI de la requête
 $uri = $_SERVER['REQUEST_URI'];
 
